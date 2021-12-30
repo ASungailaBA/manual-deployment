@@ -1,0 +1,16 @@
+name: Deploy live
+
+on:
+    workflow_dispatch:
+
+jobs:
+    echo-branch:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Git checkout
+              uses: actions/checkout@v2
+              with:
+                  ref: master
+
+            - name: Echo branch
+              run: echo "Running on branch '${GITHUB_REF##*/}'"
