@@ -6,7 +6,7 @@ on:
 jobs:
     echo-branch:
         # Check if running on allowed branch
-        if: ${{ contains('refs/heads/master', github.ref) }}
+        if: ${{ github.ref == 'refs/heads/master' }}
         runs-on: ubuntu-latest
         steps:
             - name: Git checkout
