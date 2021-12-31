@@ -4,17 +4,9 @@ on:
     workflow_dispatch:
 
 jobs:
-    validate-branch:
-        # Check if running on allowed branch
-        if: ${{ !contains('refs/heads/master', github.ref) }}
-        runs-on: ubuntu-latest
-        steps:
-            - name: Branch is not allowed for deployment
-              run: exit 1
-
     echo-branch:
-        needs:
-            - validate-branch
+        # Check if running on allowed branch
+        if: ${{ contains('refs/heads/master', github.ref) }}
         runs-on: ubuntu-latest
         steps:
             - name: Git checkout
