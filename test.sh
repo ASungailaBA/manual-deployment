@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-echo "-- master code --"
+echo "-- staging code --"
