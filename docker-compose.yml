@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+    mysql:
+        image: mysql:5.6
+        volumes:
+            - './docker/mysql/conf.d/override.cnf:/etc/mysql/conf.d/override.cnf:ro'
+        environment:
+            MYSQL_DATABASE: debug_db
+            MYSQL_ROOT_PASSWORD: "root"
+            TZ: "Europe/Vilnius"
+
+    php:
+        image: projectbp/lp:v2-php7.3
+        volumes:
+            - './:/var/www/bp-data-center'
+        restart: on-failure

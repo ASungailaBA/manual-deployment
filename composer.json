@@ -1,0 +1,16 @@
+{
+    "name": "asungaila/manual-deployment",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "ManualDeployment\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.3",
+        "symfony/dotenv": "^4.4"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
