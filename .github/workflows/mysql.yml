@@ -1,0 +1,42 @@
+name: Debug MySQL service
+
+on:
+    pull_request:
+
+jobs:
+    debug-mysql:
+        runs-on: ubuntu-latest
+        container:
+            image: projectbp/lp:v2-php7.3
+            credentials:
+                username: ${{ secrets.DOCKER_HUB_USERNAME }}
+                password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+        services:
+            mysql:
+                image: mysql:5.6
+                env:
+                    MYSQL_DATABASE: debug_db
+                    MYSQL_ROOT_PASSWORD: root
+                    TZ: "Europe/Vilnius"
+                options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+                volumes:
+                    - '${{ github.workspace }}/docker/mysql/conf.d/override.cnf:/etc/mysql/conf.d/override.cnf'
+
+        steps:
+            -   name: list files
+                run: |
+                    pwd
+                    ls -lR
+
+            -   name: Checkout code
+                uses: actions/checkout@v3
+
+            -   name: Composer install
+                run: composer install
+
+            -   name: ping
+                run: ping mysql -c 5
+
+            -   name: debug
+                run: php scripts/debug-mysql.php
